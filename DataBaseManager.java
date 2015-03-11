@@ -1,4 +1,4 @@
-package com.example.daro.bstats;
+package com.example.bstats;
 
 import android.content.ContentValues;
 import android.content.Context;
