@@ -27,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
 /*
         manager.insert(manager.TABLE_TEAM,"nombre-carolinas,categoria-una_cualquiera");
         manager.insert(manager.TABLE_TEAM,"nombre-caraperros,categoria-grrrGuau!");
+        manager.insert(manager.TABLE_TEAM,
+            manager.getStringMapa(manager.TT_nombre,"carolinas",manager.TT_categoria,"categoria Cualquiera"));
         manager.updateForOIDTeam("nombre-recien Cambiado",1);
         manager.updateALLTeams(manager.getStringMapa("nombre","Todos Editados"));
         manager.deleteALLTeams();
