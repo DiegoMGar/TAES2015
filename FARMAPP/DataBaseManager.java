@@ -210,12 +210,46 @@ public class DataBaseManager {
     }
     //READ FOR CUSTOM FILTER -----------------------------------------------------------------------
     public Cursor readForCustomFilter(String tabla,String selects,String column,String filter, String value){
-        if(tabla == null || selects == null || id == null)
+        if(tabla == null || selects == null || column == null || filter==null || value == null)
             return null;
         String[] select = selects.split(",");
         if(select.length<2)
             return null;
         return db.query(tabla,select,column+" "+filter+" "+value,null,null,null,null);
+    }
+    // INSERT --------------------------------------------------------------------------------------
+    public boolean insert(String tabla,String mapaTextual) {
+        if (mapaTextual == null || tabla == null)
+            return false;
+        if (mapaTextual.length() == 0)
+            return false;
+        long resultado = db.insert(tabla, null, generateContentValues(mapaTextual));
+        return resultado > -1;
+    }
+    // UPDATE FOR OID-------------------------------------------------------------------------------
+    public boolean updateForOID(String tabla,String mapaTextual,Integer id){
+        if(tabla == null || mapaTextual == null || id == null)
+            return false;
+        int resultado = db.update(tabla,generateContentValues(mapaTextual),
+                ALL_ID+" = "+id.toString(),null);
+        return resultado>0; // Si zero, no ha afectado a ninguna columna
+    }
+    // UPDATE ALL ----------------------------------------------------------------------------------
+    public boolean updateALL(String tabla,String mapaTextual){
+        if(tabla == null || mapaTextual == null)
+            return false;
+        int resultado = db.update(tabla,generateContentValues(mapaTextual),null,null);
+        return resultado>0; // Si zero, no ha afectado a ninguna columna
+    }
+    // DELETE FOR OID ------------------------------------------------------------------------------
+    public boolean deleteForOID(String tabla,Integer id){
+        int resultado = db.delete(tabla,ALL_ID+" = "+id.toString(),null);
+        return resultado>0; // Si zero, no ha eliminado nada
+    }
+    // DELTE ALL -----------------------------------------------------------------------------------
+    public boolean deleteALL(String tabla){
+        int resultado = db.delete(tabla,"1",null);
+        return resultado>0; // Si zero, no ha eliminado nada
     }
     // DROP TABLE ----------------------------------------------------------------------------------
     public void dropTable(String tabla){
